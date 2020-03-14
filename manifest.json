@@ -1,0 +1,26 @@
+{
+    "manifest_version": 2,
+    "name": "DIM extension",
+    "version": "0.1",
+    "description": "Extend functionmallity of destinyitemmanager.com",
+
+    "background": {
+        "persistent": false,
+        "scripts": ["background.js"]
+    },
+    "permissions": [
+        "https://*.destinyitemmanager.com/*",
+        "https://www.light.gg/*",
+        "activeTab"
+    ],
+    "content_security_policy": "script-src 'self' https://www.light.gg; object-src 'self'",
+    "web_accessible_resources": [
+        "img/*"
+    ],
+    "content_scripts": [{
+        "run_at": "document_idle",
+        "matches": ["https://*.destinyitemmanager.com/*"],
+        "css": ["content.css"],
+        "js": ["content.js"]
+    }]
+}

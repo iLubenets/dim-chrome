@@ -1,0 +1,103 @@
+.extension-popup {
+    position: absolute;
+    top: 0px;
+    left: 375px;
+    height: 100%;
+    width: 230px;
+    background-color: #1a1a20;
+}
+
+.extension-popup .item-header {
+    height: 42px;
+    background-color: lightgray;
+}
+
+.extension-popup .item-header {
+    font-size: 19px;
+}
+
+.extension-popup .rating {
+    font-size: 17px;
+    padding: 5px;
+}
+
+.extension-popup ul.list-unstyled {
+    padding-left: 0;
+    list-style: none;
+    display: block;
+}
+
+.extension-popup ul.sockets {
+    float: left;
+    max-width: 40px;
+    margin-right: 10px;
+    border: 1px dashed #ccc;
+    border-radius: 4px;
+    padding: 1px;
+}
+
+.extension-popup ul.sockets li.pref i {
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-align: center;
+    font-size: 10px;
+    color: #fc0;
+    z-index: 10;
+    padding-left: 2px;
+}
+
+.extension-popup ul.sockets li.pref div.pref-bg {
+    width: 44px;
+    height: 44px;
+    border-radius: 32.5px;
+    position: absolute;
+    left: -5px;
+    top: -5px;
+    background-image: radial-gradient(rgba(255, 192, 0, 0.6), rgba(255, 192, 0, 0) 60%);
+}
+
+.extension-popup ul.sockets li.prefpve div.pref-bg {
+    background-image: radial-gradient(rgba(32, 32, 255, 0.9), rgba(32, 32, 255, 0) 60%);
+}
+
+.extension-popup ul.sockets li.prefpvp div.pref-bg {
+    background-image: radial-gradient(rgba(255, 48, 48, 0.75), rgba(255, 48, 48, 0) 60%);
+}
+
+.extension-popup ul.sockets li.pref div.pref-icon {
+    position: absolute;
+    top: 0;
+    right: -2px;
+    width: 15px;
+    height: 15px;
+    z-index: 5;
+    background-size: 15px;
+}
+
+.extension-popup ul.sockets li.prefpve div.pref-icon {
+    background-image: url('chrome-extension://__MSG_@@extension_id__/img/pve-icon.png');
+}
+
+.extension-popup ul.sockets li.prefpvp div.pref-icon {
+    background-image: url('chrome-extension://__MSG_@@extension_id__/img/pvp-icon.png');
+}
+
+.extension-popup ul.sockets li {
+    position: relative;
+}
+
+.extension-popup ul.sockets li.random img {
+    width: 35px;
+}
+
+#stats table td {
+    padding-top: 5px;
+    padding-right: 5px;
+    font-size: 16px;
+}
+
+#stats img {
+    width: 20px;
+    margin-left: 5px;
+}
