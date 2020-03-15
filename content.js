@@ -2,7 +2,7 @@ console.log('DIM extension loaded.');
 
 document.body.addEventListener('click', function(event) {
     if (event.target.className === 'item') {
-        setTimeout(onClickItem(), 100);
+        setTimeout(() => onClickItem(), 100);
     }
 }, false);
 
@@ -16,9 +16,9 @@ function onClickItem() {
 
     chrome.runtime.sendMessage(
         getLightggItemUrl(),
-        function(url, response) {
+        function(response) {
             displayExtensionPopup(
-                prepareContentFromLightgg(url, response)
+                prepareContentFromLightgg(response.url, response.body)
             )
         });
 }
@@ -27,6 +27,22 @@ function getLightggItemUrl() {
     const itemUrl = document.querySelector('div.item-title-container > div.item-title-link > a').href;
     const regex = /items\/(\d+)/g;
     return 'https://www.light.gg/db/items/' + regex.exec(itemUrl)[1];
+}
+
+function displayExtensionPopup(contentHtml) {
+    const extensionContainer = document.createElement('div');
+    extensionContainer.className = 'extension-popup'
+    extensionContainer.innerHTML = contentHtml;
+
+    const itemPopup = document.getElementsByClassName('move-popup-dialog');
+    itemPopup.item(0).append(extensionContainer);
+}
+
+function cleanExtensionPopup() {
+    var extensionPopup = document.getElementsByClassName('extension-popup');
+    while (extensionPopup.length > 0) {
+        extensionPopup[0].parentNode.removeChild(extensionPopup[0]);
+    }
 }
 
 function prepareContentFromLightgg(url, response) {
@@ -59,20 +75,4 @@ function prepareContentFromLightgg(url, response) {
     }
 
     return container;
-}
-
-function displayExtensionPopup(contentHtml) {
-    const extensionContainer = document.createElement('div');
-    extensionContainer.className = 'extension-popup'
-    extensionContainer.innerHTML = contentHtml;
-
-    const itemPopup = document.getElementsByClassName('move-popup-dialog');
-    itemPopup.item(0).append(extensionContainer);
-}
-
-function cleanExtensionPopup() {
-    var extensionPopup = document.getElementsByClassName('extension-popup');
-    while (extensionPopup.length > 0) {
-        extensionPopup[0].parentNode.removeChild(extensionPopup[0]);
-    }
 }
