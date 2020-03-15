@@ -1,49 +1,47 @@
 console.log('DIM extension loaded.');
 
 document.body.addEventListener('click', function(event) {
-    if (event.target.className !== 'item') {
-        return
+    if (event.target.className === 'item') {
+        setTimeout(onClickItem(), 100);
     }
-    setTimeout(function() {
-        var itemPopup = document.getElementsByClassName('move-popup-dialog');
-        if (itemPopup.length == 0) {
-            return
-        }
-
-        // cleanup
-        cleanExtensionPopup();
-
-        // load data from light.gg
-        const lightggItemUrl = parseLightggItemUrl();
-        chrome.runtime.sendMessage(
-            lightggItemUrl,
-            function(lightggHtml) {
-                displayExtensionPopup(
-                    prepareContentFromLightgg(lightggItemUrl, lightggHtml)
-                )
-            });
-    }, 100);
 }, false);
 
-function parseLightggItemUrl() {
+function onClickItem() {
+    var itemPopup = document.getElementsByClassName('move-popup-dialog');
+    if (itemPopup.length == 0) {
+        return
+    }
+
+    cleanExtensionPopup();
+
+    chrome.runtime.sendMessage(
+        getLightggItemUrl(),
+        function(url, response) {
+            displayExtensionPopup(
+                prepareContentFromLightgg(url, response)
+            )
+        });
+}
+
+function getLightggItemUrl() {
     const itemUrl = document.querySelector('div.item-title-container > div.item-title-link > a').href;
     const regex = /items\/(\d+)/g;
     return 'https://www.light.gg/db/items/' + regex.exec(itemUrl)[1];
 }
 
-function prepareContentFromLightgg(lightggItemUrl, lightggHtml) {
+function prepareContentFromLightgg(url, response) {
     const parser = new DOMParser();
-    const doc = parser.parseFromString(lightggHtml, 'text/html');
+    const doc = parser.parseFromString(response, 'text/html');
 
     // header
     var container = '<div class="item-header">' +
-        '<a target="_blank" href="' + lightggItemUrl + '">LIGHT.GG</a>' +
+        '<a target="_blank" href="' + url + '">LIGHT.GG</a>' +
         '</div>';
 
     // rating
     container += '<div class="rating">' +
         'PVE: ' + doc.querySelector('#review-container > div:nth-child(2) > span').textContent +
-        '    ' +
+        '     ' +
         'PVP: ' + doc.querySelector('#review-container > div:nth-child(3) > span').textContent +
         '</div>';
 
