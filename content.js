@@ -1,13 +1,14 @@
 console.log('DIM extension loaded.');
 
 document.body.addEventListener('click', function(event) {
-    if (event.target.className === 'item') {
+    if (event.target.className === 'item' || event.target.className.startsWith('InventoryItem')) {
         setTimeout(() => onClickItem(), 100);
     }
 }, false);
 
 function onClickItem() {
-    var itemPopup = document.getElementsByClassName('move-popup-dialog');
+    // var itemPopup = document.getElementsByClassName('move-popup-dialog');
+    var itemPopup = document.querySelectorAll('[role="dialog"]');
     if (itemPopup.length == 0) {
         return
     }
@@ -34,7 +35,8 @@ function displayExtensionPopup(contentHtml) {
     extensionContainer.className = 'extension-popup'
     extensionContainer.innerHTML = contentHtml;
 
-    const itemPopup = document.getElementsByClassName('move-popup-dialog');
+    // const itemPopup = document.getElementsByClassName('move-popup-dialog');
+    var itemPopup = document.querySelectorAll('[role="dialog"]');
     itemPopup.item(0).append(extensionContainer);
 }
 
